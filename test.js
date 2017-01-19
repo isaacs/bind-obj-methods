@@ -47,4 +47,9 @@ bindObj(obj, Object.prototype)
 m = obj.hasOwnProperty
 assert.equal(m('hasOwnProperty'), true)
 
+obj = makeObj()
+m = obj.method
+assert.equal(bindObj(obj), obj)
+
+
 console.log('TAP version 13\nok\n1..1')
