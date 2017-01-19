@@ -28,5 +28,6 @@ var m = obj.method
 m() // undefined
 
 bindObjMethods(obj)
+m = obj.method
 m() // 'bar'
 ```
