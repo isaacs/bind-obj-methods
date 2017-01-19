@@ -30,4 +30,6 @@ function bindObj (obj, proto, bound) {
       })
     }
   })
+
+  return proto
 }
