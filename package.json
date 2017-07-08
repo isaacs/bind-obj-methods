@@ -22,5 +22,6 @@
   "homepage": "https://github.com/isaacs/bind-obj-methods#readme",
   "devDependencies": {
     "tap": "^10.7.0"
-  }
+  },
+  "files": []
 }
