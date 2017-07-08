@@ -1,4 +1,4 @@
-var assert = require('assert')
+const t = require('tap')
 var bindObj = require('./bind-obj-methods.js')
 var obj, m
 
@@ -22,29 +22,27 @@ function makeObj () {
 
 // pretend we already bound secretMethod
 obj = makeObj()
-bindObj(obj, obj, [ 'secretMethod', 'method' ])
+bindObj(obj, null, [ 'secretMethod', 'method' ])
 m = obj.method
-assert.equal(m(), undefined)
+t.equal(m(), undefined)
 m = obj.secretMethod
-assert.throws(m)
+t.throws(m)
 
 obj = makeObj()
 bindObj(obj, obj, { secretMethod: true })
 m = obj.method
-assert.equal(m(), 'bar')
+t.equal(m(), 'bar')
 m = obj.secretMethod
-assert.throws(m)
+t.throws(m)
 
 obj = makeObj()
 bindObj(obj, obj)
 m = obj.method
-assert.equal(m(), 'bar')
+t.equal(m(), 'bar')
 m = obj.secretMethod
-assert.equal(m(), 'secretbar')
+t.equal(m(), 'secretbar')
 
 obj = makeObj()
 bindObj(obj, Object.prototype)
 m = obj.hasOwnProperty
-assert.equal(m('hasOwnProperty'), true)
-
-console.log('TAP version 13\nok\n1..1')
+t.equal(m('hasOwnProperty'), true)
