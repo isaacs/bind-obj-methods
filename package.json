@@ -4,7 +4,10 @@
   "description": "Bind methods to an object from that object or some other source. Optionally specify a set of methods to skip over.",
   "main": "bind-obj-methods.js",
   "scripts": {
-    "test": "node test.js"
+    "test": "tap test.js --100",
+    "preversion": "npm test",
+    "postversion": "npm publish",
+    "postpublish": "git push origin --all; git push origin --tags"
   },
   "author": "Isaac Z. Schlueter <i@izs.me> (http://blog.izs.me/)",
   "license": "ISC",
@@ -16,5 +19,8 @@
   "bugs": {
     "url": "https://github.com/isaacs/bind-obj-methods/issues"
   },
-  "homepage": "https://github.com/isaacs/bind-obj-methods#readme"
+  "homepage": "https://github.com/isaacs/bind-obj-methods#readme",
+  "devDependencies": {
+    "tap": "^10.7.0"
+  }
 }
