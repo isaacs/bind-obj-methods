@@ -10,16 +10,31 @@ module.exports = (obj, proto, bound) => {
   bound.constructor = true
   proto = proto || obj
 
-  Object.keys(proto)
-    .filter(k => (typeof obj[k] === 'function' && !bound[k]))
-    .forEach(k => (bound[k] = true, obj[k] = proto[k].bind(obj)))
+  for (const k of Object.getOwnPropertyNames(proto)) {
+    if (bound[k]) {
+      continue
+    }
 
-  Object.getOwnPropertyNames(proto)
-    .filter(k => (typeof obj[k] === 'function' && !bound[k]))
-    .forEach(k => (bound[k] = true, Object.defineProperty(obj, k, {
-      value: obj[k].bind(obj),
-      enumerable: false,
-      configurable: true,
-      writable: true
-    })))
+    const descriptor = {...Object.getOwnPropertyDescriptor(proto, k)};
+
+    if ('value' in descriptor) {
+      if (typeof descriptor.value !== 'function') {
+        continue
+      }
+
+      descriptor.value = descriptor.value.bind(obj);
+      if (!descriptor.configurable) {
+        if (!descriptor.writable) {
+          continue;
+        }
+
+        obj[k] = descriptor.value;
+        bound[k] = true;
+        continue;
+      }
+
+      bound[k] = true;
+      Object.defineProperty(obj, k, descriptor)
+    }
+  }
 }
