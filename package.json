@@ -1,6 +1,6 @@
 {
   "name": "bind-obj-methods",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Bind methods to an object from that object or some other source. Optionally specify a set of methods to skip over.",
   "main": "bind-obj-methods.js",
   "scripts": {
