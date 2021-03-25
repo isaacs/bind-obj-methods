@@ -4,40 +4,17 @@ var obj, m
 
 function makeObj () {
   var obj = {
-    method () { return this.foo },
+    method: function () { return this.foo },
     foo: 'bar'
   }
 
   Object.defineProperty(obj, 'secretMethod', {
-    value () {
+    value: function () {
       return 'secret' + this.method()
     },
     enumerable: false,
     configurable: true,
     writable: true
-  })
-
-  Object.defineProperty(obj, 'writable', {
-    value () {
-      return 'writable' + this.method()
-    },
-    configurable: false,
-    writable: true
-  })
-
-  Object.defineProperty(obj, 'readonly', {
-    value () {
-      return 'readonly' + (this === global ? '' : 'error')
-    },
-    configurable: false,
-    writable: false
-  })
-
-  Object.defineProperty(obj, 'getter', {
-    get () {
-      return 'getter' + (this === global ? '' : 'error')
-    },
-    configurable: true
   })
 
   return obj
@@ -64,14 +41,6 @@ m = obj.method
 t.equal(m(), 'bar')
 m = obj.secretMethod
 t.equal(m(), 'secretbar')
-m = obj.writable
-t.equal(m(), 'writablebar')
-m = obj.readonly
-t.equal(m(), 'readonly')
-
-// This is a weird thing to do but here it is.
-m = Object.getOwnPropertyDescriptor(obj, 'getter').get
-t.equal(m(), 'getter')
 
 obj = makeObj()
 bindObj(obj, Object.prototype)

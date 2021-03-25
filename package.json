@@ -24,10 +24,7 @@
   },
   "homepage": "https://github.com/isaacs/bind-obj-methods#readme",
   "devDependencies": {
-    "tap": "^15.0.0-2"
-  },
-  "engines": {
-    "node": ">=10"
+    "tap": "^10.7.0"
   },
   "files": []
 }
